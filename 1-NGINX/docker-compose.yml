@@ -1,0 +1,9 @@
+version: '3.9' # optional since v1.27.0
+services:
+  devtest:
+    image: nginx:latest
+    ports:
+      - '8090:80'
+    volumes:
+      - ./host_app:/usr/share/nginx/html
+    restart: always
