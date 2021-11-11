@@ -1,0 +1,49 @@
+version: "3.6"
+services:
+  rabbitmq:
+    # There is a prebuilt RabbitMQ image; see
+    # https://hub.docker.com/_/rabbitmq/ for details.
+    # This variant is built on Alpine Linux (it's smaller) and includes
+    # the management UI.
+    image: rabbitmq:3-management
+
+    # These ports are exposed on the host; 'hostport:containerport'.
+    # You could connect to this server from outside with the *host's*
+    # DNS name or IP address and port 5672 (the left-hand side of the
+    # colon).
+    ports:
+      # The standard AMQP protocol port
+      - '5672:5672'
+      # HTTP management UI
+      - '8080:15672'
+    # Run this container on a private network for this application.
+    # This is necessary for magic Docker DNS to work: other containers
+    # also running on this network will see a host name "rabbitmq"
+    # (the name of this section) and the internal port 5672, even though
+    # that's not explicitly published above.
+    networks:
+      - network
+  web:
+    image: pqsar/docker-course-web
+    build:
+      context: .
+      dockerfile: ./PQS.DockerCourse.Web/Dockerfile
+    ports:
+      - '8081:80'
+    networks:
+      - network
+    depends_on:
+      - worker
+  worker:
+    image: pqsar/docker-course-worker
+    build:
+      context: .
+      dockerfile: ./PQS.DockerCourse.Workers/Dockerfile
+    networks:
+      - network
+    depends_on:
+      - rabbitmq
+networks:
+  # Declare our private network.  We must declare one for the magic
+  # Docker DNS to work, but otherwise its default settings are fine.
+  network: {}
