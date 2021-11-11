@@ -1,4 +1,4 @@
-version: "3.6"
+version: '3.6'
 services:
   rabbitmq:
     # There is a prebuilt RabbitMQ image; see
@@ -24,7 +24,7 @@ services:
     networks:
       - network
   web:
-    image: pqsar/docker-course-web
+    image: quay.io/pqsdev/docker-course-web
     build:
       context: .
       dockerfile: ./PQS.DockerCourse.Web/Dockerfile
@@ -35,7 +35,7 @@ services:
     depends_on:
       - worker
   worker:
-    image: pqsar/docker-course-worker
+    image: quay.io/pqsdev/docker-course-worker
     build:
       context: .
       dockerfile: ./PQS.DockerCourse.Workers/Dockerfile
