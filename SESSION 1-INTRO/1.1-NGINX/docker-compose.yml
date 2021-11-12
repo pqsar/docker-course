@@ -7,3 +7,10 @@ services:
     volumes:
       - ./host_app:/usr/share/nginx/html
     restart: always
+  devtest2:
+    image: nginx:latest
+    ports:
+      - '8091:80'
+    volumes:
+      - ./host_app2:/usr/share/nginx/html
+    restart: always

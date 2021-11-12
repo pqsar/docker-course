@@ -32,7 +32,7 @@ namespace PQS.DockerCourse.Web
         {
             services.AddMassTransit(x =>
             {
-                
+
                 x.AddRequestClient<CheckInventory>();
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -58,7 +58,7 @@ namespace PQS.DockerCourse.Web
             //{
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PQS.DockerCourse.Web v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PQS Docker Course Web v1"));
             //}
 
             app.UseRouting();
